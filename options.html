@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YT Peek Settings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0f0f0f;
+      --card-bg: #1f1f1f;
+      --primary-color: #ff0000;
+      --primary-hover: #cc0000;
+      --text-color: #f1f1f1;
+      --text-muted: #aaaaaa;
+      --border-color: #383838;
+      --success-color: #2ba640;
+      --error-color: #ff4e4e;
+      --accent-color: #3ea6ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 580px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), #ff4e7e, var(--accent-color));
+    }
+
+    header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .logo-icon {
+      background-color: var(--primary-color);
+      color: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-color);
+      letter-spacing: -0.5px;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .section {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background-color: #121212;
+      color: var(--text-color);
+      font-family: inherit;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(62, 166, 255, 0.15);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    button {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 8px;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.2);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Status Notifications */
+    .status-msg {
+      margin-top: 15px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .status-msg.success {
+      display: block;
+      background-color: rgba(43, 166, 64, 0.1);
+      border: 1px solid var(--success-color);
+      color: var(--success-color);
+    }
+
+    .status-msg.error {
+      display: block;
+      background-color: rgba(255, 78, 78, 0.1);
+      border: 1px solid var(--error-color);
+      color: var(--error-color);
+    }
+
+    .status-msg.info {
+      display: block;
+      background-color: rgba(62, 166, 255, 0.1);
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    /* Guide Section */
+    .guide-card {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+
+    .guide-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .guide-steps {
+      list-style-type: decimal;
+      padding-left: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .guide-steps li {
+      margin-bottom: 8px;
+    }
+
+    .guide-steps a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    .guide-steps a:hover {
+      text-decoration: underline;
+    }
+
+    .badge {
+      background-color: #ff3b30;
+      color: white;
+      padding: 2px 6px;
+      font-size: 10px;
+      border-radius: 4px;
+      font-weight: bold;
+      vertical-align: middle;
+      margin-left: 5px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-container">
+        <div class="logo-icon">YT</div>
+        <div>
+          <h1>YT Peek</h1>
+          <div class="tagline">Instant Video Insights</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="section">
+      <label for="api-key">YouTube Data API v3 Key <span class="badge">FREE</span></label>
+      <div class="input-wrapper">
+        <input type="text" id="api-key" placeholder="Paste your YouTube API Key here..." autocomplete="off">
+      </div>
+      <div id="status-box" class="status-msg"></div>
+    </div>
+
+    <div class="actions">
+      <button id="btn-save" class="btn-primary">
+        <span id="btn-text">Save & Validate Key</span>
+      </button>
+      <button id="btn-reset" class="btn-secondary">Clear Cache</button>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-color)"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        How to get a FREE API Key (takes 2 minutes)
+      </div>
+      <ol class="guide-steps">
+        <li>Go to the <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a>.</li>
+        <li>Create a new project (name it "YT Peek" or similar).</li>
+        <li>Search for the <strong>YouTube Data API v3</strong> in the library and click <strong>Enable</strong>.</li>
+        <li>Go to <strong>Credentials</strong>, click <strong>+ Create Credentials</strong>, and select <strong>API Key</strong>.</li>
+        <li>Copy that API key, paste it in the box above, and click <strong>Save & Validate Key</strong>!</li>
+      </ol>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
