@@ -1,10 +1,6 @@
-Extension Walkthrough: YT Peek
+YT Peek
 YT Peek: Instant Video Insights is a modern, high-performance, and feature-rich Chrome extension built with Manifest V3. When users hover over any YouTube link across the web, the extension dynamically presents detailed video statistics, ratings, live status, resolutions, and an autoplaying looped video preview without redirecting them.
 
-All source files have been generated inside d:\Ai\yt-hover-insights\.
-
-File Summary
-The extension is composed of the following files:
 
 manifest.json
 : Extension configuration specifying MV3 guidelines, storage permission, matches for all HTTP/HTTPS hosts, background scripts, content scripts, options dashboard, and web-accessible style injection.
